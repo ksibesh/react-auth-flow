@@ -1,0 +1,30 @@
+{
+  "name": "basic-repo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ksibesh/basic-repo.git"
+  },
+  "keywords": [
+    "basic",
+    "repository",
+    "es6",
+    "standalone"
+  ],
+  "author": "Sibesh Kumar <ksibesh@gmail.com> (https://github.com/ksibesh)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ksibesh/basic-repo/issues"
+  },
+  "homepage": "https://github.com/ksibesh/basic-repo#readme",
+  "devDependencies": {
+    "babel-preset-es2015": "^6.9.0",
+    "grunt": "^1.0.1",
+    "grunt-babel": "^6.0.0"
+  }
+}
