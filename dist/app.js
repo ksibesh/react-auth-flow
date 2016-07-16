@@ -3,7 +3,6 @@
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-exports.authService = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -21,7 +20,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var localStorageConst = 'rightStayHostAuth';
 var actionConst = {
 	LOGIN: 'LOGIN',
 	LOGOUT: 'LOGOUT'
@@ -39,13 +37,14 @@ var AuthService = function () {
 			this.loginPath = params.loginPath;
 			this.defaultRedirectPath = params.defaultRedirectPath;
 			this.redirectAction = params.redirectAction;
+			this.localStorageConst = params.localStorageKey;
 
 			return { 'authorization': this.authenticationReducer };
 		}
 	}, {
 		key: 'getContext',
 		value: function getContext() {
-			return localStorage.getItem(localStorageConst);
+			return localStorage.getItem(this.localStorageConst);
 		}
 	}, {
 		key: 'redirect',
@@ -89,12 +88,12 @@ var AuthService = function () {
 					context: context
 				}
 			});
-			localStorage.setItem(localStorageConst, token);
+			localStorage.setItem(this.localStorageConst, token);
 		}
 	}, {
 		key: 'isAuthenticated',
 		value: function isAuthenticated() {
-			var token = localStorage.getItem(localStorageConst);
+			var token = localStorage.getItem(this.localStorageConst);
 			if (!token || token === null) {
 				return false;
 			} else {
@@ -107,7 +106,7 @@ var AuthService = function () {
 			this.store.dispatch({
 				type: actionConst.LOGOUT
 			});
-			localStorage.removeItem(localStorageConst);
+			localStorage.removeItem(this.localStorageConst);
 			this.redirect(this.loginPath);
 		}
 	}, {
@@ -163,5 +162,5 @@ var AuthService = function () {
 	return AuthService;
 }();
 
-var authService = exports.authService = new AuthService();
+exports.default = new AuthService();
 //# sourceMappingURL=app.js.map

@@ -1,6 +1,5 @@
 import React, { createElement } from 'react';
 
-const localStorageConst = 'rightStayHostAuth';
 const actionConst = {
 	LOGIN: 'LOGIN',
 	LOGOUT: 'LOGOUT'
@@ -13,12 +12,13 @@ class AuthService {
 		this.loginPath = params.loginPath;
 		this.defaultRedirectPath = params.defaultRedirectPath;
 		this.redirectAction = params.redirectAction;
+		this.localStorageConst = params.localStorageKey
 
 		return { 'authorization': this.authenticationReducer };
 	}
 
 	getContext() {
-		return localStorage.getItem(localStorageConst);
+		return localStorage.getItem(this.localStorageConst);
 	}
 
 	redirect(path) {
@@ -56,11 +56,11 @@ class AuthService {
 				context: context
 			}
 		});
-		localStorage.setItem(localStorageConst, token);
+		localStorage.setItem(this.localStorageConst, token);
 	}
 
 	isAuthenticated() {
-		let token = localStorage.getItem(localStorageConst);
+		let token = localStorage.getItem(this.localStorageConst);
 		if( !token || token === null ){
 			return false;
 		} else {
@@ -72,7 +72,7 @@ class AuthService {
 		this.store.dispatch({
 			type: actionConst.LOGOUT
 		});
-		localStorage.removeItem(localStorageConst);
+		localStorage.removeItem(this.localStorageConst);
 		this.redirect(this.loginPath);
 	}
 
@@ -108,4 +108,4 @@ class AuthService {
 	}
 }
 
-export const authService = new AuthService();
+export default new AuthService();
