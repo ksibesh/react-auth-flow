@@ -37,6 +37,24 @@ AuthService.init({
 | `localStorageKey` | key name by which the user context is saved in local storage |
 
 
+**Authenticating routes using react router and react-auth-flow**
+
+You can authenticate your component using *requireAuth* method of the library
+
+```javascript
+AuthService.requireAuth(YourComponent);
+```
+
+*Example-*
+
+```javascript
+import AuthService from 'react-auth-flow';
+
+<Router history={history}>
+	<Route path="/" component={AuthService.requireAuth(YourComponent)}/>
+</Router>
+```
+
 *Basic Example-*
 ```javascript
 import {createStore, combineReducers} from 'redux';
