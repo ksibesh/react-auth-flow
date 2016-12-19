@@ -38,8 +38,6 @@ var AuthService = function () {
 			this.defaultRedirectPath = params.defaultRedirectPath;
 			this.redirectAction = params.redirectAction;
 			this.localStorageConst = params.localStorageKey;
-			this.preAuth = params.preAuth;
-			this.postAuth = params.postAuth;
 
 			return { 'authorization': this.authenticationReducer };
 		}
@@ -113,7 +111,7 @@ var AuthService = function () {
 		}
 	}, {
 		key: 'requireAuth',
-		value: function requireAuth(wrappedComponent) {
+		value: function requireAuth(wrappedComponent, preAuth, postAuth) {
 			var redirectAction = this.redirectAction;
 			var _instance = this;
 			var store = this.store;
@@ -141,15 +139,15 @@ var AuthService = function () {
 				}, {
 					key: 'checkAuth',
 					value: function checkAuth(props, state) {
-						if (this.preAuth) {
-							this.preAuth(props, state);
+						if (preAuth) {
+							preAuth(props, state);
 						}
 						if (!_instance.isAuthenticated()) {
 							var redirectAfterLogin = this.props.location.pathname;
 							store.dispatch(redirectAction(loginPath + '?next=' + redirectAfterLogin));
 						}
-						if (this.postAuth) {
-							this.postAuth(props, state);
+						if (postAuth) {
+							postAuth(props, state);
 						}
 					}
 				}, {

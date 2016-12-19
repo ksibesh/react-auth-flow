@@ -13,8 +13,6 @@ class AuthService {
 		this.defaultRedirectPath = params.defaultRedirectPath;
 		this.redirectAction = params.redirectAction;
 		this.localStorageConst = params.localStorageKey;
-    this.preAuth = params.preAuth;
-    this.postAuth = params.postAuth;
 
 		return { 'authorization': this.authenticationReducer };
 	}
@@ -78,7 +76,7 @@ class AuthService {
 		this.redirect(this.loginPath);
 	}
 
-	requireAuth(wrappedComponent) {
+	requireAuth(wrappedComponent, preAuth, postAuth) {
 		let redirectAction = this.redirectAction;
 		let _instance = this;
 		let store = this.store;
@@ -94,15 +92,15 @@ class AuthService {
 			}
 
 			checkAuth(props, state) {
-        if(this.preAuth) {
-          this.preAuth(props, state);
+        if(preAuth) {
+          preAuth(props, state);
         }
 				if(!_instance.isAuthenticated()) {
 					let redirectAfterLogin = this.props.location.pathname;
 					store.dispatch(redirectAction(loginPath + '?next=' + redirectAfterLogin));
 				}
-        if(this.postAuth) {
-          this.postAuth(props, state);
+        if(postAuth) {
+          postAuth(props, state);
         }
 			}
 
