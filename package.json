@@ -1,6 +1,6 @@
 {
   "name": "react-auth-flow",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "handles authentication flow for react application using local storage for context storage",
   "main": "./dist/app.js",
   "scripts": {
