@@ -12,7 +12,9 @@ class AuthService {
 		this.loginPath = params.loginPath;
 		this.defaultRedirectPath = params.defaultRedirectPath;
 		this.redirectAction = params.redirectAction;
-		this.localStorageConst = params.localStorageKey
+		this.localStorageConst = params.localStorageKey;
+    this.preAuth = params.preAuth;
+    this.postAuth = params.postAuth;
 
 		return { 'authorization': this.authenticationReducer };
 	}
@@ -84,20 +86,24 @@ class AuthService {
 
 		return class AuthenticatedComponent extends React.Component {
 			componentWillMount() {
-				this.checkAuth();
+				this.checkAuth(this.props, this.state);
 			}
 
 			componentWillReceiveProps(nextProp) {
-				this.checkAuth();
+				this.checkAuth(nextProps, this.state);
 			}
 
-			checkAuth() {
+			checkAuth(props, state) {
+        if(this.preAuth) {
+          this.preAuth(props, state);
+        }
 				if(!_instance.isAuthenticated()) {
 					let redirectAfterLogin = this.props.location.pathname;
-					log('inside instance');
-					log(redirectAfterLogin);
 					store.dispatch(redirectAction(loginPath + '?next=' + redirectAfterLogin));
 				}
+        if(this.postAuth) {
+          this.postAuth(props, state);
+        }
 			}
 
 			render() {
