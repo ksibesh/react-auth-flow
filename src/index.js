@@ -87,7 +87,7 @@ class AuthService {
 				this.checkAuth(this.props, this.state);
 			}
 
-			componentWillReceiveProps(nextProp) {
+			componentWillReceiveProps(nextProps) {
 				this.checkAuth(nextProps, this.state);
 			}
 
