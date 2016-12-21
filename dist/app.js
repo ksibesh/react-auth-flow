@@ -133,7 +133,7 @@ var AuthService = function () {
 					}
 				}, {
 					key: 'componentWillReceiveProps',
-					value: function componentWillReceiveProps(nextProp) {
+					value: function componentWillReceiveProps(nextProps) {
 						this.checkAuth(nextProps, this.state);
 					}
 				}, {
